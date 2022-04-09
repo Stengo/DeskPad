@@ -13,8 +13,6 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.layer?.backgroundColor = NSColor.red.cgColor
-
         let desc = CGVirtualDisplayDescriptor()
         desc.setDispatchQueue(DispatchQueue.main)
         desc.name = "DeskPad Display"
