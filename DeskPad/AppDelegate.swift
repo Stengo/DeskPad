@@ -1,5 +1,4 @@
 import Cocoa
-import Dynamic
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
