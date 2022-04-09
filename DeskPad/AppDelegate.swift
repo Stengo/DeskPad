@@ -8,8 +8,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let viewController = ViewController()
         window = NSWindow(contentViewController: viewController)
         window.makeKeyAndOrderFront(nil)
-        window.setFrame(NSRect(x: 0, y: 0, width: 1280, height: 800), display: true)
-        window.contentAspectRatio = NSSize(width: 16, height: 10)
+        let contentSize = NSSize(width: 1280, height: 800)
+        window.contentMinSize = contentSize
+        window.contentMaxSize = contentSize
+        window.setContentSize(contentSize)
         window.center()
     }
 }
