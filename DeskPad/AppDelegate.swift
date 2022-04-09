@@ -8,7 +8,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let viewController = ViewController()
         window = NSWindow(contentViewController: viewController)
         window.makeKeyAndOrderFront(nil)
-        window.setFrame(NSRect(x: 0, y: 0, width: 400, height: 200), display: true)
+        window.setFrame(NSRect(x: 0, y: 0, width: 1280, height: 800), display: true)
         window.center()
     }
 }
