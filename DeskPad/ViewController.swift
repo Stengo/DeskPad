@@ -37,8 +37,8 @@ class ViewController: NSViewController {
 
         let stream = CGDisplayStream(
             dispatchQueueDisplay: display.displayID,
-            outputWidth: 1920,
-            outputHeight: 1080,
+            outputWidth: 1280,
+            outputHeight: 800,
             pixelFormat: 1111970369, // BGRA
             properties: nil,
             queue: .main,
