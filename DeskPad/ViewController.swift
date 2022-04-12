@@ -16,8 +16,8 @@ class ViewController: NSViewController {
         let desc = CGVirtualDisplayDescriptor()
         desc.setDispatchQueue(DispatchQueue.main)
         desc.name = "DeskPad Display"
-        desc.maxPixelsWide = 1280
-        desc.maxPixelsHigh = 800
+        desc.maxPixelsWide = 1920
+        desc.maxPixelsHigh = 1080
         desc.sizeInMillimeters = CGSize(width: 1600, height: 900)
         desc.productID = 0x1234
         desc.vendorID = 0x3456
@@ -29,14 +29,14 @@ class ViewController: NSViewController {
         let settings = CGVirtualDisplaySettings()
         settings.hiDPI = 2
         settings.modes = [
-            CGVirtualDisplayMode(width: 1280, height: 800, refreshRate: 30),
+            CGVirtualDisplayMode(width: 1920, height: 1080, refreshRate: 60),
         ]
         display.apply(settings)
 
         let stream = CGDisplayStream(
             dispatchQueueDisplay: display.displayID,
-            outputWidth: 1280,
-            outputHeight: 800,
+            outputWidth: 1920,
+            outputHeight: 1080,
             pixelFormat: 1111970369, // BGRA
             properties: nil,
             queue: .main,
