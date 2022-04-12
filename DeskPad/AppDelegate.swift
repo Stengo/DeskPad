@@ -6,6 +6,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let viewController = ViewController()
         window = NSWindow(contentViewController: viewController)
+        window.level = .floating
         window.makeKeyAndOrderFront(nil)
         let contentSize = NSSize(width: 1920, height: 1080)
         window.contentMinSize = contentSize
