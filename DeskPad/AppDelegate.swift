@@ -8,7 +8,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window = NSWindow(contentViewController: viewController)
         window.level = .floating
         window.makeKeyAndOrderFront(nil)
-        let contentSize = NSSize(width: 1920, height: 1080)
+        let contentSize = NSSize(width: 1920, height: 1200)
         window.contentMinSize = contentSize
         window.contentMaxSize = contentSize
         window.setContentSize(contentSize)
