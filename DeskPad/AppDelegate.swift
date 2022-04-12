@@ -14,4 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setContentSize(contentSize)
         window.center()
     }
+
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
 }
