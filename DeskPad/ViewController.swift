@@ -1,7 +1,6 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
     override func loadView() {
         view = NSView()
         view.wantsLayer = true
@@ -37,10 +36,10 @@ class ViewController: NSViewController {
             dispatchQueueDisplay: display.displayID,
             outputWidth: 1920,
             outputHeight: 1200,
-            pixelFormat: 1111970369, // BGRA
+            pixelFormat: 1_111_970_369, // BGRA
             properties: nil,
             queue: .main,
-            handler: { [weak self] frameStatus, displayTime, frameSurface, updateRef in
+            handler: { [weak self] _, _, frameSurface, _ in
                 if let surface = frameSurface {
                     self?.view.layer?.contents = surface
                 }
@@ -52,4 +51,3 @@ class ViewController: NSViewController {
         }
     }
 }
-
