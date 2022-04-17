@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D2F1482280C1F9200A3A2E5 /* ReSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6D2F1481280C1F9200A3A2E5 /* ReSwift */; };
 		6DC044522801877F00281728 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC044512801877F00281728 /* AppDelegate.swift */; };
 		6DC044542801877F00281728 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC044532801877F00281728 /* ViewController.swift */; };
 		6DC044562801878100281728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DC044552801878100281728 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D2F1482280C1F9200A3A2E5 /* ReSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +85,7 @@
 			);
 			name = DeskPad;
 			packageProductDependencies = (
+				6D2F1481280C1F9200A3A2E5 /* ReSwift */,
 			);
 			productName = DeskPad;
 			productReference = 6DC0444E2801877F00281728 /* DeskPad.app */;
@@ -113,6 +116,7 @@
 			);
 			mainGroup = 6DC044452801877F00281728;
 			packageReferences = (
+				6D2F1480280C1F9200A3A2E5 /* XCRemoteSwiftPackageReference "ReSwift" */,
 			);
 			productRefGroup = 6DC0444F2801877F00281728 /* Products */;
 			projectDirPath = "";
@@ -356,6 +360,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6D2F1480280C1F9200A3A2E5 /* XCRemoteSwiftPackageReference "ReSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReSwift/ReSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6D2F1481280C1F9200A3A2E5 /* ReSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D2F1480280C1F9200A3A2E5 /* XCRemoteSwiftPackageReference "ReSwift" */;
+			productName = ReSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6DC044462801877F00281728 /* Project object */;
 }

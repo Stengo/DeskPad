@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ReSwift",
+        "repositoryURL": "https://github.com/ReSwift/ReSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "96146a29f394ae4c79be025fcec194e5b0d9c3b6",
+          "version": "6.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
