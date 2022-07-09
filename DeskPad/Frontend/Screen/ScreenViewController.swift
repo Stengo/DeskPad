@@ -55,6 +55,8 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
     }
 
     override func update(with viewData: ScreenViewData) {
-        view.window?.backgroundColor = viewData.isWindowHighlighted ? .red : .white
+        view.window?.backgroundColor = viewData.isWindowHighlighted
+            ? NSColor(named: "TitleBarActive")
+            : NSColor(named: "TitleBarInactive")
     }
 }
