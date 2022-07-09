@@ -10,6 +10,7 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
 
     private var display: CGVirtualDisplay?
     private var stream: CGDisplayStream?
+    private var isWindowHighlighted = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +56,14 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
     }
 
     override func update(with viewData: ScreenViewData) {
-        view.window?.backgroundColor = viewData.isWindowHighlighted
-            ? NSColor(named: "TitleBarActive")
-            : NSColor(named: "TitleBarInactive")
+        if viewData.isWindowHighlighted != isWindowHighlighted {
+            isWindowHighlighted = viewData.isWindowHighlighted
+            view.window?.backgroundColor = isWindowHighlighted
+                ? NSColor(named: "TitleBarActive")
+                : NSColor(named: "TitleBarInactive")
+            if isWindowHighlighted {
+                view.window?.orderFrontRegardless()
+            }
+        }
     }
 }
