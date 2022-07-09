@@ -1,10 +1,15 @@
 import Cocoa
+import ReSwift
+
+enum AppDelegateAction: Action {
+    case didFinishLaunching
+}
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
     func applicationDidFinishLaunching(_: Notification) {
-        let viewController = ViewController()
+        let viewController = ScreenViewController()
         window = NSWindow(contentViewController: viewController)
         window.title = "DeskPad"
         window.makeKeyAndOrderFront(nil)
@@ -12,6 +17,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentMinSize = contentSize
         window.contentMaxSize = contentSize
         window.setContentSize(contentSize)
+        window?.titlebarAppearsTransparent = true
+        window.isMovableByWindowBackground = true
+        window.titleVisibility = .hidden
+        window.backgroundColor = .white
         window.center()
 
         let mainMenu = NSMenu()
@@ -26,6 +35,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         mainMenuItem.submenu = subMenu
         mainMenu.items = [mainMenuItem]
         NSApplication.shared.mainMenu = mainMenu
+
+        store.dispatch(AppDelegateAction.didFinishLaunching)
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {

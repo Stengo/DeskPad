@@ -1,6 +1,8 @@
 import Cocoa
 
-class ViewController: NSViewController {
+var displayID: CGDirectDisplayID?
+
+class ScreenViewController: SubscriberViewController<ScreenViewData> {
     override func loadView() {
         view = NSView()
         view.wantsLayer = true
@@ -23,6 +25,7 @@ class ViewController: NSViewController {
         desc.serialNum = 0x0001
 
         let display = CGVirtualDisplay(descriptor: desc)
+        displayID = display.displayID
         self.display = display
 
         let settings = CGVirtualDisplaySettings()
@@ -49,5 +52,9 @@ class ViewController: NSViewController {
         if let error = stream?.start() {
             print(error)
         }
+    }
+
+    override func update(with viewData: ScreenViewData) {
+        view.window?.backgroundColor = viewData.isWindowHighlighted ? .red : .white
     }
 }

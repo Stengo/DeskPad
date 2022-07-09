@@ -12,7 +12,10 @@
 		6D2F148A280C20D000A3A2E5 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F1487280C20D000A3A2E5 /* AppState.swift */; };
 		6D2F148B280C20D000A3A2E5 /* SideEffectsMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F1488280C20D000A3A2E5 /* SideEffectsMiddleware.swift */; };
 		6D2F148C280C20D000A3A2E5 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F1489280C20D000A3A2E5 /* Store.swift */; };
-		6D2F148E280C211E00A3A2E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F148D280C211E00A3A2E5 /* ViewController.swift */; };
+		6D2F148E280C211E00A3A2E5 /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F148D280C211E00A3A2E5 /* ScreenViewController.swift */; };
+		6D41B09F2879FAB6007CEB2F /* MouseLocationSideEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B09E2879FAB6007CEB2F /* MouseLocationSideEffect.swift */; };
+		6D41B0A12879FABE007CEB2F /* MouseLocationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B0A02879FABE007CEB2F /* MouseLocationState.swift */; };
+		6D41B0A42879FBA8007CEB2F /* ScreenViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B0A32879FBA8007CEB2F /* ScreenViewData.swift */; };
 		6DC044522801877F00281728 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC044512801877F00281728 /* AppDelegate.swift */; };
 		6DC044562801878100281728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DC044552801878100281728 /* Assets.xcassets */; };
 		6DC04461280191EB00281728 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC04460280191EB00281728 /* main.swift */; };
@@ -23,9 +26,12 @@
 		6D2F1487280C20D000A3A2E5 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		6D2F1488280C20D000A3A2E5 /* SideEffectsMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideEffectsMiddleware.swift; sourceTree = "<group>"; };
 		6D2F1489280C20D000A3A2E5 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		6D2F148D280C211E00A3A2E5 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6D2F148D280C211E00A3A2E5 /* ScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenViewController.swift; sourceTree = "<group>"; };
 		6D36BEB92801A39200EAB869 /* CGVirtualDisplayPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGVirtualDisplayPrivate.h; sourceTree = "<group>"; };
 		6D36BEBA2801A40600EAB869 /* DeskPad-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DeskPad-Bridging-Header.h"; sourceTree = "<group>"; };
+		6D41B09E2879FAB6007CEB2F /* MouseLocationSideEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseLocationSideEffect.swift; sourceTree = "<group>"; };
+		6D41B0A02879FABE007CEB2F /* MouseLocationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseLocationState.swift; sourceTree = "<group>"; };
+		6D41B0A32879FBA8007CEB2F /* ScreenViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenViewData.swift; sourceTree = "<group>"; };
 		6DC0444E2801877F00281728 /* DeskPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeskPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DC044512801877F00281728 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DC044552801878100281728 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +57,7 @@
 				6D2F1487280C20D000A3A2E5 /* AppState.swift */,
 				6D2F1488280C20D000A3A2E5 /* SideEffectsMiddleware.swift */,
 				6D2F1489280C20D000A3A2E5 /* Store.swift */,
+				6D41B09D2879FA87007CEB2F /* MouseLocation */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -58,9 +65,27 @@
 		6D2F1484280C202700A3A2E5 /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
-				6D2F148D280C211E00A3A2E5 /* ViewController.swift */,
+				6D41B0A22879FB88007CEB2F /* Screen */,
 			);
 			path = Frontend;
+			sourceTree = "<group>";
+		};
+		6D41B09D2879FA87007CEB2F /* MouseLocation */ = {
+			isa = PBXGroup;
+			children = (
+				6D41B09E2879FAB6007CEB2F /* MouseLocationSideEffect.swift */,
+				6D41B0A02879FABE007CEB2F /* MouseLocationState.swift */,
+			);
+			path = MouseLocation;
+			sourceTree = "<group>";
+		};
+		6D41B0A22879FB88007CEB2F /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				6D2F148D280C211E00A3A2E5 /* ScreenViewController.swift */,
+				6D41B0A32879FBA8007CEB2F /* ScreenViewData.swift */,
+			);
+			path = Screen;
 			sourceTree = "<group>";
 		};
 		6DC044452801877F00281728 = {
@@ -194,9 +219,12 @@
 			files = (
 				6D2F148C280C20D000A3A2E5 /* Store.swift in Sources */,
 				6D2F1486280C20C800A3A2E5 /* SubscriberViewController.swift in Sources */,
+				6D41B0A12879FABE007CEB2F /* MouseLocationState.swift in Sources */,
 				6D2F148A280C20D000A3A2E5 /* AppState.swift in Sources */,
 				6D2F148B280C20D000A3A2E5 /* SideEffectsMiddleware.swift in Sources */,
-				6D2F148E280C211E00A3A2E5 /* ViewController.swift in Sources */,
+				6D41B09F2879FAB6007CEB2F /* MouseLocationSideEffect.swift in Sources */,
+				6D41B0A42879FBA8007CEB2F /* ScreenViewData.swift in Sources */,
+				6D2F148E280C211E00A3A2E5 /* ScreenViewController.swift in Sources */,
 				6DC044522801877F00281728 /* AppDelegate.swift in Sources */,
 				6DC04461280191EB00281728 /* main.swift in Sources */,
 			);
