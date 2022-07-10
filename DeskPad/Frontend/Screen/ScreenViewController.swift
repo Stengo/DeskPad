@@ -34,12 +34,28 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
         self.display = display
 
         let settings = CGVirtualDisplaySettings()
-        settings.modes = [
-            CGVirtualDisplayMode(width: 1920, height: 1200, refreshRate: 60),
-            CGVirtualDisplayMode(width: 1680, height: 1050, refreshRate: 60),
-            CGVirtualDisplayMode(width: 1440, height: 900, refreshRate: 60),
-            CGVirtualDisplayMode(width: 1280, height: 800, refreshRate: 60),
+        let sizes: [CGSize] = [
+            CGSize(width: 1920, height: 1200),
+            CGSize(width: 1680, height: 1050),
+            CGSize(width: 1440, height: 900),
+            CGSize(width: 1280, height: 800),
         ]
+        let refreshRates: [CGFloat] = [
+            60,
+            50,
+            30,
+            25,
+        ]
+        let modes = refreshRates.flatMap { refreshRate in
+            sizes.map { size in
+                CGVirtualDisplayMode(
+                    width: UInt(size.width),
+                    height: UInt(size.height),
+                    refreshRate: refreshRate
+                )
+            }
+        }
+        settings.modes = modes
         display.apply(settings)
     }
 
