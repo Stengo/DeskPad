@@ -65,7 +65,7 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
                 dispatchQueueDisplay: display.displayID,
                 outputWidth: Int(viewData.resolution.width),
                 outputHeight: Int(viewData.resolution.height),
-                pixelFormat: 1_111_970_369, // BGRA
+                pixelFormat: 1_111_970_369,
                 properties: nil,
                 queue: .main,
                 handler: { [weak self] _, _, frameSurface, _ in
