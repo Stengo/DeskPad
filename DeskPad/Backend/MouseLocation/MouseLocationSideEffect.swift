@@ -8,13 +8,13 @@ enum MouseLocationAction: Action {
 }
 
 func mouseLocationSideEffect() -> SideEffect {
-    return { _, dispatch, _ in
+    return { _, dispatch, getState in
         if timer == nil {
             timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
                 let mouseLocation = NSEvent.mouseLocation
                 let screens = NSScreen.screens
                 let screenContainingMouse = (screens.first { NSMouseInRect(mouseLocation, $0.frame, false) })
-                let isWithinScreen = screenContainingMouse?.displayID == displayID
+                let isWithinScreen = screenContainingMouse?.displayID == getState()?.screenConfigurationState.displayID
                 dispatch(MouseLocationAction.located(isWithinScreen: isWithinScreen))
             }
         }

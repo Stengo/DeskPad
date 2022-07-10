@@ -1,6 +1,9 @@
 import Cocoa
+import ReSwift
 
-var displayID: CGDirectDisplayID?
+enum ScreenViewAction: Action {
+    case setDisplayID(CGDirectDisplayID)
+}
 
 class ScreenViewController: SubscriberViewController<ScreenViewData> {
     override func loadView() {
@@ -27,7 +30,7 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
         desc.serialNum = 0x0001
 
         let display = CGVirtualDisplay(descriptor: desc)
-        displayID = display.displayID
+        store.dispatch(ScreenViewAction.setDisplayID(display.displayID))
         self.display = display
 
         let settings = CGVirtualDisplaySettings()

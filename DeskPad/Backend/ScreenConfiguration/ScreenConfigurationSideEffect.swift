@@ -8,7 +8,7 @@ enum ScreenConfigurationAction: Action {
 }
 
 func screenConfigurationSideEffect() -> SideEffect {
-    return { _, dispatch, _ in
+    return { _, dispatch, getState in
         if isObserving == false {
             isObserving = true
             NotificationCenter.default.addObserver(
@@ -16,7 +16,9 @@ func screenConfigurationSideEffect() -> SideEffect {
                 object: NSApplication.shared,
                 queue: .main
             ) { _ in
-                guard let screen = NSScreen.screens.first(where: { $0.displayID == displayID }) else {
+                guard let screen = NSScreen.screens.first(where: {
+                    $0.displayID == getState()?.screenConfigurationState.displayID
+                }) else {
                     return
                 }
                 dispatch(ScreenConfigurationAction.setResolution(screen.frame.size))
