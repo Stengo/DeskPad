@@ -34,7 +34,6 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
         self.display = display
 
         let settings = CGVirtualDisplaySettings()
-        settings.hiDPI = 2
         settings.modes = [
             CGVirtualDisplayMode(width: 1920, height: 1200, refreshRate: 60),
             CGVirtualDisplayMode(width: 1680, height: 1050, refreshRate: 60),

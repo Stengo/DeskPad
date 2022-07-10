@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CGVirtualDisplaySettings : NSObject
 
-@property(nonatomic) unsigned int hiDPI;
 @property(retain, nonatomic) NSArray<CGVirtualDisplayMode *> *modes;
 
 - (instancetype)init;
