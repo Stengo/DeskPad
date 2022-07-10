@@ -23,3 +23,9 @@ DeskPad behaves like any other display. Launching the app is equivalent to plugg
 You can change the display resolution through the system preferences and the application window will adjust accordingly.
 
 Whenever you move your mouse cursor to the virtual display, DeskPad will highlight its title bar in blue and move the application window to the front to let you know where you are.
+
+<h3 align="center">
+  <a href="https://github.com/Stengo/DeskPad/blob/main/demonstration.gif">
+  <img src="https://github.com/Stengo/DeskPad/blob/main/demonstration.gif?raw=true" alt="DeskPad Demonstration">
+  </a>
+</h3>
