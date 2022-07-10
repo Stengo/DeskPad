@@ -20,6 +20,6 @@ DeskPad creates a virtual display that is mirrored within it's application windo
 # Usage
 DeskPad behaves like any other display. Launching the app is equivalent to plugging in a monitor, so macOS will take care of properly arranging your windows to their previous configuration.
 
-You can change the display resolution through the system preferences, the application window will adjust accordingly.
+You can change the display resolution through the system preferences and the application window will adjust accordingly.
 
 Whenever you move your mouse cursor to the virtual display, DeskPad will highlight its title bar in blue and move the application window to the front to let you know where you are.
