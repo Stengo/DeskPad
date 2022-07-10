@@ -8,9 +8,10 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
         view.wantsLayer = true
     }
 
-    private var display: CGVirtualDisplay?
+    private var display: CGVirtualDisplay!
     private var stream: CGDisplayStream?
     private var isWindowHighlighted = false
+    private var previousResolution: CGSize?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,26 +34,11 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
         settings.hiDPI = 2
         settings.modes = [
             CGVirtualDisplayMode(width: 1920, height: 1200, refreshRate: 60),
+            CGVirtualDisplayMode(width: 1680, height: 1050, refreshRate: 60),
+            CGVirtualDisplayMode(width: 1440, height: 900, refreshRate: 60),
+            CGVirtualDisplayMode(width: 1280, height: 800, refreshRate: 60),
         ]
         display.apply(settings)
-
-        let stream = CGDisplayStream(
-            dispatchQueueDisplay: display.displayID,
-            outputWidth: 1920,
-            outputHeight: 1200,
-            pixelFormat: 1_111_970_369, // BGRA
-            properties: nil,
-            queue: .main,
-            handler: { [weak self] _, _, frameSurface, _ in
-                if let surface = frameSurface {
-                    self?.view.layer?.contents = surface
-                }
-            }
-        )
-        self.stream = stream
-        if let error = stream?.start() {
-            print(error)
-        }
     }
 
     override func update(with viewData: ScreenViewData) {
@@ -64,6 +50,30 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
             if isWindowHighlighted {
                 view.window?.orderFrontRegardless()
             }
+        }
+
+        if viewData.resolution != .zero, viewData.resolution != previousResolution {
+            previousResolution = viewData.resolution
+            stream = nil
+            view.window?.contentMinSize = viewData.resolution
+            view.window?.contentMaxSize = viewData.resolution
+            view.window?.setContentSize(viewData.resolution)
+            view.window?.center()
+            let stream = CGDisplayStream(
+                dispatchQueueDisplay: display.displayID,
+                outputWidth: Int(viewData.resolution.width),
+                outputHeight: Int(viewData.resolution.height),
+                pixelFormat: 1_111_970_369, // BGRA
+                properties: nil,
+                queue: .main,
+                handler: { [weak self] _, _, frameSurface, _ in
+                    if let surface = frameSurface {
+                        self?.view.layer?.contents = surface
+                    }
+                }
+            )
+            self.stream = stream
+            stream?.start()
         }
     }
 }

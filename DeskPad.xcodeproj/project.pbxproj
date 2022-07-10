@@ -16,6 +16,9 @@
 		6D41B09F2879FAB6007CEB2F /* MouseLocationSideEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B09E2879FAB6007CEB2F /* MouseLocationSideEffect.swift */; };
 		6D41B0A12879FABE007CEB2F /* MouseLocationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B0A02879FABE007CEB2F /* MouseLocationState.swift */; };
 		6D41B0A42879FBA8007CEB2F /* ScreenViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B0A32879FBA8007CEB2F /* ScreenViewData.swift */; };
+		6D68E1AF287ABB9900CD574A /* ScreenConfigurationSideEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68E1AE287ABB9900CD574A /* ScreenConfigurationSideEffect.swift */; };
+		6D68E1B2287ABDB900CD574A /* NSScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68E1B1287ABDB900CD574A /* NSScreen+Extensions.swift */; };
+		6D68E1B4287ABFC800CD574A /* ScreenConfigurationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68E1B3287ABFC800CD574A /* ScreenConfigurationState.swift */; };
 		6DC044522801877F00281728 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC044512801877F00281728 /* AppDelegate.swift */; };
 		6DC044562801878100281728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DC044552801878100281728 /* Assets.xcassets */; };
 		6DC04461280191EB00281728 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC04460280191EB00281728 /* main.swift */; };
@@ -32,6 +35,9 @@
 		6D41B09E2879FAB6007CEB2F /* MouseLocationSideEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseLocationSideEffect.swift; sourceTree = "<group>"; };
 		6D41B0A02879FABE007CEB2F /* MouseLocationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseLocationState.swift; sourceTree = "<group>"; };
 		6D41B0A32879FBA8007CEB2F /* ScreenViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenViewData.swift; sourceTree = "<group>"; };
+		6D68E1AE287ABB9900CD574A /* ScreenConfigurationSideEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenConfigurationSideEffect.swift; sourceTree = "<group>"; };
+		6D68E1B1287ABDB900CD574A /* NSScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSScreen+Extensions.swift"; sourceTree = "<group>"; };
+		6D68E1B3287ABFC800CD574A /* ScreenConfigurationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenConfigurationState.swift; sourceTree = "<group>"; };
 		6DC0444E2801877F00281728 /* DeskPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeskPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DC044512801877F00281728 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DC044552801878100281728 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +63,7 @@
 				6D2F1487280C20D000A3A2E5 /* AppState.swift */,
 				6D2F1488280C20D000A3A2E5 /* SideEffectsMiddleware.swift */,
 				6D2F1489280C20D000A3A2E5 /* Store.swift */,
+				6D68E1AD287ABB6F00CD574A /* ScreenConfiguration */,
 				6D41B09D2879FA87007CEB2F /* MouseLocation */,
 			);
 			path = Backend;
@@ -88,6 +95,23 @@
 			path = Screen;
 			sourceTree = "<group>";
 		};
+		6D68E1AD287ABB6F00CD574A /* ScreenConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				6D68E1AE287ABB9900CD574A /* ScreenConfigurationSideEffect.swift */,
+				6D68E1B3287ABFC800CD574A /* ScreenConfigurationState.swift */,
+			);
+			path = ScreenConfiguration;
+			sourceTree = "<group>";
+		};
+		6D68E1B0287ABDAB00CD574A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6D68E1B1287ABDB900CD574A /* NSScreen+Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		6DC044452801877F00281728 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +136,7 @@
 				6DC044512801877F00281728 /* AppDelegate.swift */,
 				6D2F1483280C201B00A3A2E5 /* Backend */,
 				6D2F1484280C202700A3A2E5 /* Frontend */,
+				6D68E1B0287ABDAB00CD574A /* Helpers */,
 				6D36BEBA2801A40600EAB869 /* DeskPad-Bridging-Header.h */,
 				6D36BEB92801A39200EAB869 /* CGVirtualDisplayPrivate.h */,
 				6DC044552801878100281728 /* Assets.xcassets */,
@@ -217,8 +242,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D68E1B4287ABFC800CD574A /* ScreenConfigurationState.swift in Sources */,
+				6D68E1B2287ABDB900CD574A /* NSScreen+Extensions.swift in Sources */,
 				6D2F148C280C20D000A3A2E5 /* Store.swift in Sources */,
 				6D2F1486280C20C800A3A2E5 /* SubscriberViewController.swift in Sources */,
+				6D68E1AF287ABB9900CD574A /* ScreenConfigurationSideEffect.swift in Sources */,
 				6D41B0A12879FABE007CEB2F /* MouseLocationState.swift in Sources */,
 				6D2F148A280C20D000A3A2E5 /* AppState.swift in Sources */,
 				6D2F148B280C20D000A3A2E5 /* SideEffectsMiddleware.swift in Sources */,

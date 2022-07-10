@@ -13,15 +13,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window = NSWindow(contentViewController: viewController)
         window.title = "DeskPad"
         window.makeKeyAndOrderFront(nil)
-        let contentSize = NSSize(width: 1920, height: 1200)
-        window.contentMinSize = contentSize
-        window.contentMaxSize = contentSize
-        window.setContentSize(contentSize)
         window?.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = true
         window.titleVisibility = .hidden
         window.backgroundColor = .white
-        window.center()
 
         let mainMenu = NSMenu()
         let mainMenuItem = NSMenuItem()

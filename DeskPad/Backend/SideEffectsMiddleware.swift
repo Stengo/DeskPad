@@ -5,6 +5,7 @@ typealias SideEffect = (Action, @escaping DispatchFunction, @escaping () -> AppS
 
 private let sideEffects: [SideEffect] = [
     mouseLocationSideEffect(),
+    screenConfigurationSideEffect(),
 ]
 
 let sideEffectsMiddleware: Middleware<AppState> = { dispatch, getState in
