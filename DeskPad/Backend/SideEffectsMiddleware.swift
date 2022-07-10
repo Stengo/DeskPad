@@ -4,7 +4,7 @@ import ReSwift
 typealias SideEffect = (Action, @escaping DispatchFunction, @escaping () -> AppState?) -> Void
 
 private let sideEffects: [SideEffect] = [
-    MouseLocationSideEffect(),
+    mouseLocationSideEffect(),
 ]
 
 let sideEffectsMiddleware: Middleware<AppState> = { dispatch, getState in

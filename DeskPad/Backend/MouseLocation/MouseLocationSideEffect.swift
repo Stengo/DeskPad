@@ -7,7 +7,7 @@ enum MouseLocationAction: Action {
     case located(isWithinScreen: Bool)
 }
 
-func MouseLocationSideEffect() -> SideEffect {
+func mouseLocationSideEffect() -> SideEffect {
     return { _, dispatch, _ in
         if timer == nil {
             timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
