@@ -15,7 +15,7 @@ A virtual monitor for screen sharing
 
 Certain workflows require sharing the entire screen (usually due to switching through multiple applications), but if the presenter has a much larger display than the audience it can be hard to see what is happening.
 
-DeskPad creates a virtual display that is mirrored within it's application window so that you can create a dedicated, easy shareable workspace.
+DeskPad creates a virtual display that is mirrored within it's application window so that you can create a dedicated, easily shareable workspace.
 
 # Usage
 DeskPad behaves like any other display. Launching the app is equivalent to plugging in a monitor, so macOS will take care of properly arranging your windows to their previous configuration.
