@@ -29,3 +29,10 @@ Whenever you move your mouse cursor to the virtual display, DeskPad will highlig
   <img src="https://github.com/Stengo/DeskPad/blob/main/demonstration.gif?raw=true" alt="DeskPad Demonstration">
   </a>
 </h3>
+
+# Installation
+
+There are two options for installation
+
+1. Find the latest binaries here https://github.com/Stengo/DeskPad/releases
+2. Pull down this repository and build with Xcode
