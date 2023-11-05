@@ -9,6 +9,7 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
     override func loadView() {
         view = NSView()
         view.wantsLayer = true
+        view.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(didClickOnScreen)))
     }
 
     private var display: CGVirtualDisplay!
@@ -95,5 +96,18 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
             return frameSize
         }
         return window.frameRect(forContentRect: NSRect(origin: .zero, size: screenResolution)).size
+    }
+
+    @objc private func didClickOnScreen(_ gestureRecoginizer: NSGestureRecognizer) {
+        guard let screenResolution = previousResolution else {
+            return
+        }
+        let clickedPoint = gestureRecoginizer.location(in: view)
+        let onScreenPoint = NSPoint(
+            x: clickedPoint.x / view.frame.width * screenResolution.width,
+            y: (view.frame.height - clickedPoint.y) / view.frame.height * screenResolution.height
+        )
+        print("\(clickedPoint), \(onScreenPoint)")
+        store.dispatch(MouseLocationAction.requestMove(toPoint: onScreenPoint))
     }
 }
