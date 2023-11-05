@@ -5,7 +5,7 @@ enum ScreenViewAction: Action {
     case setDisplayID(CGDirectDisplayID)
 }
 
-class ScreenViewController: SubscriberViewController<ScreenViewData> {
+class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDelegate {
     override func loadView() {
         view = NSView()
         view.wantsLayer = true
@@ -64,9 +64,8 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
         if viewData.resolution != .zero, viewData.resolution != previousResolution {
             previousResolution = viewData.resolution
             stream = nil
-            view.window?.contentMinSize = viewData.resolution
-            view.window?.contentMaxSize = viewData.resolution
             view.window?.setContentSize(viewData.resolution)
+            view.window?.contentAspectRatio = viewData.resolution
             view.window?.center()
             let stream = CGDisplayStream(
                 dispatchQueueDisplay: display.displayID,
@@ -84,5 +83,17 @@ class ScreenViewController: SubscriberViewController<ScreenViewData> {
             self.stream = stream
             stream?.start()
         }
+    }
+
+    func windowWillResize(_ window: NSWindow, to frameSize: NSSize) -> NSSize {
+        let snappingOffset: CGFloat = 20
+        let contentSize = window.contentRect(forFrameRect: NSRect(origin: .zero, size: frameSize)).size
+        guard
+            let screenResolution = previousResolution,
+            abs(contentSize.width - screenResolution.width) < snappingOffset
+        else {
+            return frameSize
+        }
+        return window.frameRect(forContentRect: NSRect(origin: .zero, size: screenResolution)).size
     }
 }
