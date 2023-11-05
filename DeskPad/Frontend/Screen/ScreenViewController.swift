@@ -110,7 +110,6 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
             x: clickedPoint.x / view.frame.width * screenResolution.width,
             y: (view.frame.height - clickedPoint.y) / view.frame.height * screenResolution.height
         )
-        print("\(clickedPoint), \(onScreenPoint)")
         store.dispatch(MouseLocationAction.requestMove(toPoint: onScreenPoint))
     }
 }
