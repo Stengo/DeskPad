@@ -23,8 +23,8 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
         let descriptor = CGVirtualDisplayDescriptor()
         descriptor.setDispatchQueue(DispatchQueue.main)
         descriptor.name = "DeskPad Display"
-        descriptor.maxPixelsWide = 1920
-        descriptor.maxPixelsHigh = 1200
+        descriptor.maxPixelsWide = 3840
+        descriptor.maxPixelsHigh = 2160
         descriptor.sizeInMillimeters = CGSize(width: 1600, height: 1000)
         descriptor.productID = 0x1234
         descriptor.vendorID = 0x3456
@@ -101,11 +101,11 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
         return window.frameRect(forContentRect: NSRect(origin: .zero, size: screenResolution)).size
     }
 
-    @objc private func didClickOnScreen(_ gestureRecoginizer: NSGestureRecognizer) {
+    @objc private func didClickOnScreen(_ gestureRecognizer: NSGestureRecognizer) {
         guard let screenResolution = previousResolution else {
             return
         }
-        let clickedPoint = gestureRecoginizer.location(in: view)
+        let clickedPoint = gestureRecognizer.location(in: view)
         let onScreenPoint = NSPoint(
             x: clickedPoint.x / view.frame.width * screenResolution.width,
             y: (view.frame.height - clickedPoint.y) / view.frame.height * screenResolution.height
