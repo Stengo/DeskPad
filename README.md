@@ -17,6 +17,10 @@ Certain workflows require sharing the entire screen (usually due to switching th
 
 DeskPad creates a virtual display that is mirrored within its application window so that you can create a dedicated, easily shareable workspace.
 
+# Installation
+
+You can either download the [latest release binary](https://github.com/Stengo/DeskPad/releases) or install via [brew](https://brew.sh) by calling `brew install deskpad`.
+
 # Usage
 DeskPad behaves like any other display. Launching the app is equivalent to plugging in a monitor, so macOS will take care of properly arranging your windows to their previous configuration.
 
@@ -29,10 +33,3 @@ Whenever you move your mouse cursor to the virtual display, DeskPad will highlig
   <img src="https://github.com/Stengo/DeskPad/blob/main/demonstration.gif?raw=true" alt="DeskPad Demonstration">
   </a>
 </h3>
-
-# Installation
-
-There are two options for installation
-
-1. Find the latest binaries here https://github.com/Stengo/DeskPad/releases
-2. Pull down this repository and build with Xcode
