@@ -4,7 +4,7 @@ import ReSwift
 private var isObserving = false
 
 enum ScreenConfigurationAction: Action {
-    case setResolution(CGSize)
+    case set(resolution: CGSize, scaleFactor: CGFloat)
 }
 
 func screenConfigurationSideEffect() -> SideEffect {
@@ -21,7 +21,10 @@ func screenConfigurationSideEffect() -> SideEffect {
                 }) else {
                     return
                 }
-                dispatch(ScreenConfigurationAction.setResolution(screen.frame.size))
+                dispatch(ScreenConfigurationAction.set(
+                    resolution: screen.frame.size,
+                    scaleFactor: screen.backingScaleFactor
+                ))
             }
         }
     }

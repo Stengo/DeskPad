@@ -73,8 +73,8 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
             view.window?.center()
             let stream = CGDisplayStream(
                 dispatchQueueDisplay: display.displayID,
-                outputWidth: Int(viewData.resolution.width),
-                outputHeight: Int(viewData.resolution.height),
+                outputWidth: Int(viewData.resolution.width * viewData.scaleFactor),
+                outputHeight: Int(viewData.resolution.height * viewData.scaleFactor),
                 pixelFormat: 1_111_970_369,
                 properties: nil,
                 queue: .main,
