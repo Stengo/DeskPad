@@ -16,6 +16,7 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
     private var stream: CGDisplayStream?
     private var isWindowHighlighted = false
     private var previousResolution: CGSize?
+    private var previousScaleFactor: CGFloat?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +66,13 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
             }
         }
 
-        if viewData.resolution != .zero, viewData.resolution != previousResolution {
+        if
+            viewData.resolution != .zero,
+            viewData.resolution != previousResolution
+            || viewData.scaleFactor != previousScaleFactor
+        {
             previousResolution = viewData.resolution
+            previousScaleFactor = viewData.scaleFactor
             stream = nil
             view.window?.setContentSize(viewData.resolution)
             view.window?.contentAspectRatio = viewData.resolution
