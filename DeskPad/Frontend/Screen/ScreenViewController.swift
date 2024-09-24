@@ -82,7 +82,9 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
                 outputWidth: Int(viewData.resolution.width * viewData.scaleFactor),
                 outputHeight: Int(viewData.resolution.height * viewData.scaleFactor),
                 pixelFormat: 1_111_970_369,
-                properties: nil,
+                properties: [
+                    CGDisplayStream.showCursor: true,
+                ] as CFDictionary,
                 queue: .main,
                 handler: { [weak self] _, _, frameSurface, _ in
                     if let surface = frameSurface {
