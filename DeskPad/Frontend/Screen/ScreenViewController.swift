@@ -24,7 +24,7 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
         let descriptor = CGVirtualDisplayDescriptor()
         descriptor.setDispatchQueue(DispatchQueue.main)
         descriptor.name = "DeskPad Display"
-        descriptor.maxPixelsWide = 3840
+        descriptor.maxPixelsWide = 5120
         descriptor.maxPixelsHigh = 2160
         descriptor.sizeInMillimeters = CGSize(width: 1600, height: 1000)
         descriptor.productID = 0x1234
@@ -38,6 +38,12 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
         let settings = CGVirtualDisplaySettings()
         settings.hiDPI = 1
         settings.modes = [
+            // 32:9
+            CGVirtualDisplayMode(width: 5120, height: 1440, refreshRate: 60),
+            // 21:9 (239:100, 12:5)
+            CGVirtualDisplayMode(width: 5120, height: 2160, refreshRate: 60),
+            CGVirtualDisplayMode(width: 3840, height: 1600, refreshRate: 60),
+            CGVirtualDisplayMode(width: 3440, height: 1440, refreshRate: 60),
             // 16:9
             CGVirtualDisplayMode(width: 3840, height: 2160, refreshRate: 60),
             CGVirtualDisplayMode(width: 2560, height: 1440, refreshRate: 60),
