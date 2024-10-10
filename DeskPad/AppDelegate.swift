@@ -9,14 +9,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
     func applicationDidFinishLaunching(_: Notification) {
+        let pid = ProcessInfo().processIdentifier
         let viewController = ScreenViewController()
         window = NSWindow(contentViewController: viewController)
         window.delegate = viewController
-        window.title = "DeskPad"
+        window.title = "DeskPad (" + String(pid) + ")"
         window.makeKeyAndOrderFront(nil)
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = true
-        window.titleVisibility = .hidden
         window.backgroundColor = .white
         window.contentMinSize = CGSize(width: 400, height: 300)
         window.contentMaxSize = CGSize(width: 3840, height: 2160)
