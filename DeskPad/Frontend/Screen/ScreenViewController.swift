@@ -51,6 +51,10 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
             CGVirtualDisplayMode(width: 1680, height: 1050, refreshRate: 60),
             CGVirtualDisplayMode(width: 1440, height: 900, refreshRate: 60),
             CGVirtualDisplayMode(width: 1280, height: 800, refreshRate: 60),
+            // 1:1
+            CGVirtualDisplayMode(width: 600, height: 600, refreshRate: 60),
+            CGVirtualDisplayMode(width: 800, height: 800, refreshRate: 60),
+            CGVirtualDisplayMode(width: 1024, height: 1024, refreshRate: 60,
         ]
         display.apply(settings)
     }
