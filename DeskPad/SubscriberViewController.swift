@@ -1,6 +1,7 @@
 import AppKit
 import ReSwift
 
+@MainActor
 class SubscriberViewController<ViewData: ViewDataType>: NSViewController, StoreSubscriber {
     typealias StoreSubscriberStateType = ViewData.StateFragment
 
@@ -20,14 +21,15 @@ class SubscriberViewController<ViewData: ViewDataType>: NSViewController, StoreS
         store.unsubscribe(self)
     }
 
-    func newState(state: ViewData.StateFragment) {
-        DispatchQueue.main.async { [weak self] in
-            self?.update(with: ViewData(for: state))
+    nonisolated func newState(state: ViewData.StateFragment) {
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            self.update(with: ViewData(for: state))
         }
     }
 
     func update(with _: ViewData) {
-        fatalError("Please override the SubscriberViewController update method.")
+        assertionFailure("Please override the SubscriberViewController update method.")
     }
 }
 

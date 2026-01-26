@@ -1,11 +1,11 @@
 import ReSwift
 
-struct AppState: Equatable {
+struct AppState: Equatable, Sendable {
     let mouseLocationState: MouseLocationState
     let screenConfigurationState: ScreenConfigurationState
 
     static var initialState: AppState {
-        return AppState(
+        AppState(
             mouseLocationState: .initialState,
             screenConfigurationState: .initialState
         )

@@ -5,7 +5,8 @@ enum AppDelegateAction: Action {
     case didFinishLaunching
 }
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+@main
+final class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
     func applicationDidFinishLaunching(_: Notification) {

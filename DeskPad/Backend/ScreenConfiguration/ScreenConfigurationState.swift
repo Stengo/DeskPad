@@ -1,13 +1,13 @@
 import Foundation
 import ReSwift
 
-struct ScreenConfigurationState: Equatable {
+struct ScreenConfigurationState: Equatable, Sendable {
     let resolution: CGSize
     let scaleFactor: CGFloat
     let displayID: CGDirectDisplayID?
 
     static var initialState: ScreenConfigurationState {
-        return ScreenConfigurationState(
+        ScreenConfigurationState(
             resolution: .zero,
             scaleFactor: 1,
             displayID: nil
