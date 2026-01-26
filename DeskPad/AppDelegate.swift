@@ -6,32 +6,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var window: NSWindow!
     private var viewController: DeskPadViewController!
 
+    // MARK: - Constants
+
+    private enum Constants {
+        static let windowTitle = "DeskPad"
+        static let minContentSize = CGSize(width: 400, height: 300)
+        static let maxContentSize = CGSize(width: 3840, height: 2160)
+    }
+
     // MARK: - Application Lifecycle
 
     func applicationDidFinishLaunching(_: Notification) {
-        print("[AppDelegate] applicationDidFinishLaunching")
-
         // Create view controller (which creates display in viewDidLoad)
         viewController = DeskPadViewController()
-        print("[AppDelegate] DeskPadViewController created")
 
         // Create and configure window
         window = NSWindow(contentViewController: viewController)
-        print("[AppDelegate] Window created")
-
         configureWindow()
-        print("[AppDelegate] Window configured")
 
         // Set window delegate
         window.delegate = viewController
 
         // Show window
         window.makeKeyAndOrderFront(nil)
-        print("[AppDelegate] Window shown")
 
         // Setup application menu
         setupMenu()
-        print("[AppDelegate] Setup complete")
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
@@ -45,13 +45,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Window Configuration
 
     private func configureWindow() {
-        window.title = "DeskPad"
+        window.title = Constants.windowTitle
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = true
         window.titleVisibility = .hidden
         window.backgroundColor = .white
-        window.contentMinSize = CGSize(width: 400, height: 300)
-        window.contentMaxSize = CGSize(width: 3840, height: 2160)
+        window.contentMinSize = Constants.minContentSize
+        window.contentMaxSize = Constants.maxContentSize
         window.styleMask.insert(.resizable)
         window.collectionBehavior.insert(.fullScreenNone)
     }
@@ -63,10 +63,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Application menu
         let appMenuItem = NSMenuItem()
-        let appMenu = NSMenu(title: "DeskPad")
+        let appMenu = NSMenu(title: Constants.windowTitle)
 
         let quitItem = NSMenuItem(
-            title: "Quit DeskPad",
+            title: "Quit \(Constants.windowTitle)",
             action: #selector(NSApp.terminate),
             keyEquivalent: "q"
         )

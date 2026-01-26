@@ -2,6 +2,7 @@ import Cocoa
 import Combine
 
 /// Main view controller for the DeskPad display window
+@MainActor
 final class DeskPadViewController: NSViewController, NSWindowDelegate {
     // MARK: - Properties
 
@@ -15,6 +16,7 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
 
     private enum Constants {
         static let windowSnappingThreshold: CGFloat = 30
+        static let initialFrameSize = NSRect(x: 0, y: 0, width: 1280, height: 720)
     }
 
     // MARK: - Initialization
@@ -31,7 +33,7 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
     // MARK: - View Lifecycle
 
     override func loadView() {
-        renderer = DisplayStreamRenderer(frame: NSRect(x: 0, y: 0, width: 1280, height: 720))
+        renderer = DisplayStreamRenderer(frame: Constants.initialFrameSize)
         view = renderer
 
         // Add click gesture
@@ -94,21 +96,13 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
     // MARK: - Display Configuration
 
     private func onDisplayReady() {
-        print("[DeskPadViewController] onDisplayReady called")
-
-        guard let displayID = displayManager.displayID else {
-            print("[DeskPadViewController] No displayID")
-            return
-        }
+        guard let displayID = displayManager.displayID else { return }
 
         let resolution = displayManager.resolution
         let scaleFactor = displayManager.scaleFactor
 
-        print("[DeskPadViewController] Resolution: \(resolution), Scale: \(scaleFactor)")
-
         // Configure window size
         if let window = view.window, resolution != .zero {
-            print("[DeskPadViewController] Setting window size to: \(resolution)")
             window.setContentSize(resolution)
             window.contentAspectRatio = resolution
             window.center()
@@ -116,13 +110,11 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
 
         // Start streaming
         if resolution != .zero {
-            print("[DeskPadViewController] Starting stream for displayID: \(displayID)")
             renderer.configure(displayID: displayID, resolution: resolution, scaleFactor: scaleFactor)
         }
 
         // Start mouse tracking
         mouseTracker.startTracking(displayID: displayID)
-        print("[DeskPadViewController] Mouse tracking started")
     }
 
     private func onResolutionChanged(_ resolution: CGSize) {
@@ -171,17 +163,19 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
 
     // MARK: - NSWindowDelegate
 
-    func windowWillResize(_ window: NSWindow, to frameSize: NSSize) -> NSSize {
-        let contentSize = window.contentRect(forFrameRect: NSRect(origin: .zero, size: frameSize)).size
-        let resolution = displayManager.resolution
+    nonisolated func windowWillResize(_ window: NSWindow, to frameSize: NSSize) -> NSSize {
+        MainActor.assumeIsolated {
+            let contentSize = window.contentRect(forFrameRect: NSRect(origin: .zero, size: frameSize)).size
+            let resolution = displayManager.resolution
 
-        // Snap to exact resolution if close
-        if resolution != .zero,
-           abs(contentSize.width - resolution.width) < Constants.windowSnappingThreshold
-        {
-            return window.frameRect(forContentRect: NSRect(origin: .zero, size: resolution)).size
+            // Snap to exact resolution if close
+            if resolution != .zero,
+               abs(contentSize.width - resolution.width) < Constants.windowSnappingThreshold
+            {
+                return window.frameRect(forContentRect: NSRect(origin: .zero, size: resolution)).size
+            }
+
+            return frameSize
         }
-
-        return frameSize
     }
 }

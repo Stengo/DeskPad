@@ -1,7 +1,8 @@
+import Cocoa
 import Combine
-import Foundation
 
 /// Manages the lifecycle of the virtual display
+@MainActor
 final class VirtualDisplayManager: ObservableObject {
     // MARK: - Published State
 
@@ -13,9 +14,9 @@ final class VirtualDisplayManager: ObservableObject {
     // MARK: - Private Properties
 
     private var virtualDisplay: CGVirtualDisplay?
-    private var notificationObserver: NSObjectProtocol?
+    private var screenChangeSubscription: AnyCancellable?
+    private var retrySubscription: AnyCancellable?
     private var retryCount = 0
-    private let maxRetries = 50 // 5 seconds max at 100ms intervals
 
     // MARK: - Constants
 
@@ -27,6 +28,8 @@ final class VirtualDisplayManager: ObservableObject {
         static let productID: UInt32 = 0x1234
         static let serialNum: UInt32 = 0x0001
         static let refreshRate: CGFloat = 60
+        static let maxRetries = 50
+        static let retryInterval: TimeInterval = 0.1
 
         static let displayModes: [CGVirtualDisplayMode] = [
             // 16:9 aspect ratio
@@ -47,24 +50,18 @@ final class VirtualDisplayManager: ObservableObject {
 
     // MARK: - Initialization
 
-    init() {
-        print("[VirtualDisplayManager] Initialized")
-    }
+    init() {}
 
     deinit {
-        destroy()
+        screenChangeSubscription?.cancel()
+        retrySubscription?.cancel()
     }
 
     // MARK: - Public Methods
 
     /// Creates and configures the virtual display
     func create() {
-        guard virtualDisplay == nil else {
-            print("[VirtualDisplayManager] Already created")
-            return
-        }
-
-        print("[VirtualDisplayManager] Creating virtual display...")
+        guard virtualDisplay == nil else { return }
 
         // Create descriptor
         let descriptor = CGVirtualDisplayDescriptor()
@@ -82,30 +79,31 @@ final class VirtualDisplayManager: ObservableObject {
         virtualDisplay = display
         displayID = display.displayID
 
-        print("[VirtualDisplayManager] Display created with ID: \(display.displayID)")
-
         // Configure settings
         let settings = CGVirtualDisplaySettings()
         settings.hiDPI = 1
         settings.modes = Constants.displayModes
         display.apply(settings)
 
-        print("[VirtualDisplayManager] Settings applied")
+        // Start observing screen parameter changes using Combine
+        screenChangeSubscription = NotificationCenter.default
+            .publisher(for: NSApplication.didChangeScreenParametersNotification, object: NSApplication.shared)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateScreenConfiguration()
+            }
 
-        // Start observing screen parameter changes
-        startObservingScreenChanges()
-
-        // Query initial configuration after a brief delay
+        // Start retry loop to find the display
         retryCount = 0
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-            self?.updateScreenConfiguration()
-        }
+        startRetryLoop()
     }
 
     /// Destroys the virtual display
     func destroy() {
-        print("[VirtualDisplayManager] Destroying...")
-        stopObservingScreenChanges()
+        screenChangeSubscription?.cancel()
+        screenChangeSubscription = nil
+        retrySubscription?.cancel()
+        retrySubscription = nil
         virtualDisplay = nil
         displayID = nil
         resolution = .zero
@@ -115,53 +113,29 @@ final class VirtualDisplayManager: ObservableObject {
 
     // MARK: - Private Methods
 
-    private func startObservingScreenChanges() {
-        print("[VirtualDisplayManager] Starting notification observer")
-        notificationObserver = NotificationCenter.default.addObserver(
-            forName: NSApplication.didChangeScreenParametersNotification,
-            object: NSApplication.shared,
-            queue: .main
-        ) { [weak self] _ in
-            print("[VirtualDisplayManager] Received screen parameters notification")
-            self?.updateScreenConfiguration()
-        }
-    }
-
-    private func stopObservingScreenChanges() {
-        if let observer = notificationObserver {
-            NotificationCenter.default.removeObserver(observer)
-            notificationObserver = nil
-        }
+    private func startRetryLoop() {
+        retrySubscription = Timer.publish(every: Constants.retryInterval, on: .main, in: .common)
+            .autoconnect()
+            .prefix(Constants.maxRetries)
+            .sink { [weak self] _ in
+                self?.updateScreenConfiguration()
+            }
     }
 
     private func updateScreenConfiguration() {
-        guard let displayID = displayID else {
-            print("[VirtualDisplayManager] No displayID")
-            return
-        }
-
-        print("[VirtualDisplayManager] Looking for screen with displayID: \(displayID)")
-        print("[VirtualDisplayManager] Available screens: \(NSScreen.screens.map { "\($0.displayID)" }.joined(separator: ", "))")
+        guard let displayID = displayID else { return }
 
         guard let screen = NSScreen.screens.first(where: { $0.displayID == displayID }) else {
             retryCount += 1
-            if retryCount < maxRetries {
-                print("[VirtualDisplayManager] Display not found, retry \(retryCount)/\(maxRetries)")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                    self?.updateScreenConfiguration()
-                }
-            } else {
-                print("[VirtualDisplayManager] Max retries reached, display not found")
-            }
             return
         }
 
-        print("[VirtualDisplayManager] Found screen: \(screen.frame.size), scale: \(screen.backingScaleFactor)")
+        // Found the screen - stop retry loop
+        retrySubscription?.cancel()
+        retrySubscription = nil
 
         resolution = screen.frame.size
         scaleFactor = screen.backingScaleFactor
         isReady = true
-
-        print("[VirtualDisplayManager] isReady = true")
     }
 }

@@ -9,15 +9,18 @@ final class DisplayStreamRenderer: NSView {
     private var currentResolution: CGSize = .zero
     private var currentScaleFactor: CGFloat = 1.0
 
-    /// BGRA pixel format as 32-bit integer
-    private let pixelFormat: Int32 = 1_111_970_369
+    // MARK: - Constants
+
+    private enum Constants {
+        /// BGRA pixel format as 32-bit integer ('BGRA')
+        static let bgraPixelFormat: Int32 = 1_111_970_369
+    }
 
     // MARK: - Initialization
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true
-        print("[DisplayStreamRenderer] Initialized with frame: \(frameRect)")
     }
 
     @available(*, unavailable)
@@ -33,15 +36,12 @@ final class DisplayStreamRenderer: NSView {
 
     /// Configures and starts the display stream
     func configure(displayID: CGDirectDisplayID, resolution: CGSize, scaleFactor: CGFloat) {
-        print("[DisplayStreamRenderer] configure called - displayID: \(displayID), resolution: \(resolution), scaleFactor: \(scaleFactor)")
-
         // Skip if already configured with same parameters
         if displayID == currentDisplayID,
            resolution == currentResolution,
            scaleFactor == currentScaleFactor,
            displayStream != nil
         {
-            print("[DisplayStreamRenderer] Already configured, skipping")
             return
         }
 
@@ -57,14 +57,12 @@ final class DisplayStreamRenderer: NSView {
         let outputWidth = Int(resolution.width * scaleFactor)
         let outputHeight = Int(resolution.height * scaleFactor)
 
-        print("[DisplayStreamRenderer] Creating stream - outputWidth: \(outputWidth), outputHeight: \(outputHeight)")
-
         // Create new display stream
         let stream = CGDisplayStream(
             dispatchQueueDisplay: displayID,
             outputWidth: outputWidth,
             outputHeight: outputHeight,
-            pixelFormat: pixelFormat,
+            pixelFormat: Constants.bgraPixelFormat,
             properties: [
                 CGDisplayStream.showCursor: true,
             ] as CFDictionary,
@@ -78,9 +76,6 @@ final class DisplayStreamRenderer: NSView {
         if let stream = stream {
             displayStream = stream
             stream.start()
-            print("[DisplayStreamRenderer] Stream started successfully")
-        } else {
-            print("[DisplayStreamRenderer] ERROR: Failed to create CGDisplayStream!")
         }
     }
 

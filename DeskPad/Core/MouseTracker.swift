@@ -1,7 +1,8 @@
+import Cocoa
 import Combine
-import Foundation
 
 /// Tracks mouse position and handles cursor movement
+@MainActor
 final class MouseTracker: ObservableObject {
     // MARK: - Published State
 
@@ -9,16 +10,21 @@ final class MouseTracker: ObservableObject {
 
     // MARK: - Private Properties
 
-    private var timer: Timer?
+    private var timerSubscription: AnyCancellable?
     private var displayID: CGDirectDisplayID?
-    private let trackingInterval: TimeInterval = 0.25
+
+    // MARK: - Constants
+
+    private enum Constants {
+        static let trackingInterval: TimeInterval = 0.25
+    }
 
     // MARK: - Initialization
 
     init() {}
 
     deinit {
-        stopTracking()
+        timerSubscription?.cancel()
     }
 
     // MARK: - Public Methods
@@ -27,24 +33,26 @@ final class MouseTracker: ObservableObject {
     func startTracking(displayID: CGDirectDisplayID) {
         self.displayID = displayID
 
-        // Stop any existing timer
+        // Stop any existing subscription
         stopTracking()
 
-        // Start polling timer
-        timer = Timer.scheduledTimer(withTimeInterval: trackingInterval, repeats: true) { [weak self] _ in
-            self?.updateMouseLocation()
-        }
+        // Start polling timer using Combine
+        timerSubscription = Timer.publish(every: Constants.trackingInterval, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.updateMouseLocation()
+            }
     }
 
     /// Stops tracking mouse position
     func stopTracking() {
-        timer?.invalidate()
-        timer = nil
+        timerSubscription?.cancel()
+        timerSubscription = nil
     }
 
     /// Moves the cursor to the specified point on the virtual display
-    func moveCursor(to point: NSPoint) {
-        guard let displayID = displayID else { return }
+    nonisolated func moveCursor(to point: NSPoint) {
+        guard let displayID = MainActor.assumeIsolated({ self.displayID }) else { return }
         CGDisplayMoveCursorToPoint(displayID, point)
     }
 
