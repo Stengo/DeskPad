@@ -13,6 +13,10 @@
 		6D2F148B280C20D000A3A2E5 /* SideEffectsMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F1488280C20D000A3A2E5 /* SideEffectsMiddleware.swift */; };
 		6D2F148C280C20D000A3A2E5 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F1489280C20D000A3A2E5 /* Store.swift */; };
 		6D2F148E280C211E00A3A2E5 /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F148D280C211E00A3A2E5 /* ScreenViewController.swift */; };
+		CORE001280C211E00A3A2E5 /* VirtualDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CORE002280C211E00A3A2E5 /* VirtualDisplayManager.swift */; };
+		CORE003280C211E00A3A2E5 /* DisplayStreamRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CORE004280C211E00A3A2E5 /* DisplayStreamRenderer.swift */; };
+		CORE005280C211E00A3A2E5 /* MouseTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CORE006280C211E00A3A2E5 /* MouseTracker.swift */; };
+		CORE007280C211E00A3A2E5 /* DeskPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CORE008280C211E00A3A2E5 /* DeskPadViewController.swift */; };
 		6D41B09F2879FAB6007CEB2F /* MouseLocationSideEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B09E2879FAB6007CEB2F /* MouseLocationSideEffect.swift */; };
 		6D41B0A12879FABE007CEB2F /* MouseLocationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B0A02879FABE007CEB2F /* MouseLocationState.swift */; };
 		6D41B0A42879FBA8007CEB2F /* ScreenViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B0A32879FBA8007CEB2F /* ScreenViewData.swift */; };
@@ -24,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CORE002280C211E00A3A2E5 /* VirtualDisplayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayManager.swift; sourceTree = "<group>"; };
+		CORE004280C211E00A3A2E5 /* DisplayStreamRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStreamRenderer.swift; sourceTree = "<group>"; };
+		CORE006280C211E00A3A2E5 /* MouseTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseTracker.swift; sourceTree = "<group>"; };
+		CORE008280C211E00A3A2E5 /* DeskPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskPadViewController.swift; sourceTree = "<group>"; };
 		6D2F1485280C20C800A3A2E5 /* SubscriberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriberViewController.swift; sourceTree = "<group>"; };
 		6D2F1487280C20D000A3A2E5 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		6D2F1488280C20D000A3A2E5 /* SideEffectsMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideEffectsMiddleware.swift; sourceTree = "<group>"; };
@@ -110,6 +118,17 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		COREGRP280C211E00A3A2E5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CORE002280C211E00A3A2E5 /* VirtualDisplayManager.swift */,
+				CORE004280C211E00A3A2E5 /* DisplayStreamRenderer.swift */,
+				CORE006280C211E00A3A2E5 /* MouseTracker.swift */,
+				CORE008280C211E00A3A2E5 /* DeskPadViewController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		6DC044452801877F00281728 = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +148,7 @@
 		6DC044502801877F00281728 /* DeskPad */ = {
 			isa = PBXGroup;
 			children = (
+				COREGRP280C211E00A3A2E5 /* Core */,
 				6D2F1485280C20C800A3A2E5 /* SubscriberViewController.swift */,
 				6DC044512801877F00281728 /* AppDelegate.swift */,
 				6D2F1483280C201B00A3A2E5 /* Backend */,
@@ -240,6 +260,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CORE001280C211E00A3A2E5 /* VirtualDisplayManager.swift in Sources */,
+				CORE003280C211E00A3A2E5 /* DisplayStreamRenderer.swift in Sources */,
+				CORE005280C211E00A3A2E5 /* MouseTracker.swift in Sources */,
+				CORE007280C211E00A3A2E5 /* DeskPadViewController.swift in Sources */,
 				6D68E1B4287ABFC800CD574A /* ScreenConfigurationState.swift in Sources */,
 				6D68E1B2287ABDB900CD574A /* NSScreen+Extensions.swift in Sources */,
 				6D2F148C280C20D000A3A2E5 /* Store.swift in Sources */,

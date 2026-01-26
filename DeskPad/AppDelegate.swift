@@ -1,20 +1,48 @@
 import Cocoa
-import ReSwift
-
-enum AppDelegateAction: Action {
-    case didFinishLaunching
-}
 
 @main
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    var window: NSWindow!
+    // MARK: - Properties
+
+    private var window: NSWindow!
+    private var displayManager: VirtualDisplayManager!
+    private var mouseTracker: MouseTracker!
+
+    // MARK: - Application Lifecycle
 
     func applicationDidFinishLaunching(_: Notification) {
-        let viewController = ScreenViewController()
+        // Create managers
+        displayManager = VirtualDisplayManager()
+        mouseTracker = MouseTracker()
+
+        // Create view controller
+        let viewController = DeskPadViewController(
+            displayManager: displayManager,
+            mouseTracker: mouseTracker
+        )
+
+        // Create and configure window
         window = NSWindow(contentViewController: viewController)
+        configureWindow()
+
+        // Set window delegate
         window.delegate = viewController
-        window.title = "DeskPad"
+
+        // Show window
         window.makeKeyAndOrderFront(nil)
+
+        // Setup application menu
+        setupMenu()
+    }
+
+    func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
+        true
+    }
+
+    // MARK: - Window Configuration
+
+    private func configureWindow() {
+        window.title = "DeskPad"
         window.titlebarAppearsTransparent = true
         window.isMovableByWindowBackground = true
         window.titleVisibility = .hidden
@@ -23,24 +51,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentMaxSize = CGSize(width: 3840, height: 2160)
         window.styleMask.insert(.resizable)
         window.collectionBehavior.insert(.fullScreenNone)
+    }
 
+    // MARK: - Menu Setup
+
+    private func setupMenu() {
         let mainMenu = NSMenu()
-        let mainMenuItem = NSMenuItem()
-        let subMenu = NSMenu(title: "MainMenu")
-        let quitMenuItem = NSMenuItem(
-            title: "Quit",
+
+        // Application menu
+        let appMenuItem = NSMenuItem()
+        let appMenu = NSMenu(title: "DeskPad")
+
+        let quitItem = NSMenuItem(
+            title: "Quit DeskPad",
             action: #selector(NSApp.terminate),
             keyEquivalent: "q"
         )
-        subMenu.addItem(quitMenuItem)
-        mainMenuItem.submenu = subMenu
-        mainMenu.items = [mainMenuItem]
+        appMenu.addItem(quitItem)
+
+        appMenuItem.submenu = appMenu
+        mainMenu.addItem(appMenuItem)
+
         NSApplication.shared.mainMenu = mainMenu
-
-        store.dispatch(AppDelegateAction.didFinishLaunching)
-    }
-
-    func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
-        return true
     }
 }
