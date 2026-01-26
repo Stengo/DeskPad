@@ -21,13 +21,16 @@ class SubscriberViewController<ViewData: ViewDataType>: NSViewController, StoreS
     }
 
     func newState(state: ViewData.StateFragment) {
+        // ReSwift calls this on the same thread as dispatch (main thread in this app)
+        // Use async to avoid potential re-entrancy issues during dispatch
         DispatchQueue.main.async { [weak self] in
-            self?.update(with: ViewData(for: state))
+            guard let self else { return }
+            self.update(with: ViewData(for: state))
         }
     }
 
     func update(with _: ViewData) {
-        fatalError("Please override the SubscriberViewController update method.")
+        assertionFailure("Please override the SubscriberViewController update method.")
     }
 }
 

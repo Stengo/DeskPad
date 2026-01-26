@@ -13,6 +13,10 @@
 		6D2F148B280C20D000A3A2E5 /* SideEffectsMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F1488280C20D000A3A2E5 /* SideEffectsMiddleware.swift */; };
 		6D2F148C280C20D000A3A2E5 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F1489280C20D000A3A2E5 /* Store.swift */; };
 		6D2F148E280C211E00A3A2E5 /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F148D280C211E00A3A2E5 /* ScreenViewController.swift */; };
+		CORE001280C211E00A3A2E5 /* VirtualDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CORE002280C211E00A3A2E5 /* VirtualDisplayManager.swift */; };
+		CORE003280C211E00A3A2E5 /* DisplayStreamRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CORE004280C211E00A3A2E5 /* DisplayStreamRenderer.swift */; };
+		CORE005280C211E00A3A2E5 /* MouseTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CORE006280C211E00A3A2E5 /* MouseTracker.swift */; };
+		CORE007280C211E00A3A2E5 /* DeskPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CORE008280C211E00A3A2E5 /* DeskPadViewController.swift */; };
 		6D41B09F2879FAB6007CEB2F /* MouseLocationSideEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B09E2879FAB6007CEB2F /* MouseLocationSideEffect.swift */; };
 		6D41B0A12879FABE007CEB2F /* MouseLocationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B0A02879FABE007CEB2F /* MouseLocationState.swift */; };
 		6D41B0A42879FBA8007CEB2F /* ScreenViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D41B0A32879FBA8007CEB2F /* ScreenViewData.swift */; };
@@ -20,11 +24,15 @@
 		6D68E1B2287ABDB900CD574A /* NSScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68E1B1287ABDB900CD574A /* NSScreen+Extensions.swift */; };
 		6D68E1B4287ABFC800CD574A /* ScreenConfigurationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68E1B3287ABFC800CD574A /* ScreenConfigurationState.swift */; };
 		6DC044522801877F00281728 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC044512801877F00281728 /* AppDelegate.swift */; };
+		MAIN001280C211E00A3A2E5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = MAIN002280C211E00A3A2E5 /* main.swift */; };
 		6DC044562801878100281728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DC044552801878100281728 /* Assets.xcassets */; };
-		6DC04461280191EB00281728 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC04460280191EB00281728 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CORE002280C211E00A3A2E5 /* VirtualDisplayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualDisplayManager.swift; sourceTree = "<group>"; };
+		CORE004280C211E00A3A2E5 /* DisplayStreamRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStreamRenderer.swift; sourceTree = "<group>"; };
+		CORE006280C211E00A3A2E5 /* MouseTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseTracker.swift; sourceTree = "<group>"; };
+		CORE008280C211E00A3A2E5 /* DeskPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskPadViewController.swift; sourceTree = "<group>"; };
 		6D2F1485280C20C800A3A2E5 /* SubscriberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriberViewController.swift; sourceTree = "<group>"; };
 		6D2F1487280C20D000A3A2E5 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		6D2F1488280C20D000A3A2E5 /* SideEffectsMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideEffectsMiddleware.swift; sourceTree = "<group>"; };
@@ -40,9 +48,9 @@
 		6D68E1B3287ABFC800CD574A /* ScreenConfigurationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenConfigurationState.swift; sourceTree = "<group>"; };
 		6DC0444E2801877F00281728 /* DeskPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeskPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DC044512801877F00281728 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		MAIN002280C211E00A3A2E5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6DC044552801878100281728 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DC0445A2801878100281728 /* DeskPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeskPad.entitlements; sourceTree = "<group>"; };
-		6DC04460280191EB00281728 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +120,17 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		COREGRP280C211E00A3A2E5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CORE002280C211E00A3A2E5 /* VirtualDisplayManager.swift */,
+				CORE004280C211E00A3A2E5 /* DisplayStreamRenderer.swift */,
+				CORE006280C211E00A3A2E5 /* MouseTracker.swift */,
+				CORE008280C211E00A3A2E5 /* DeskPadViewController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		6DC044452801877F00281728 = {
 			isa = PBXGroup;
 			children = (
@@ -131,9 +150,10 @@
 		6DC044502801877F00281728 /* DeskPad */ = {
 			isa = PBXGroup;
 			children = (
-				6DC04460280191EB00281728 /* main.swift */,
+				COREGRP280C211E00A3A2E5 /* Core */,
 				6D2F1485280C20C800A3A2E5 /* SubscriberViewController.swift */,
 				6DC044512801877F00281728 /* AppDelegate.swift */,
+				MAIN002280C211E00A3A2E5 /* main.swift */,
 				6D2F1483280C201B00A3A2E5 /* Backend */,
 				6D2F1484280C202700A3A2E5 /* Frontend */,
 				6D68E1B0287ABDAB00CD574A /* Helpers */,
@@ -177,7 +197,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					6DC0444D2801877F00281728 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -219,6 +239,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		6D2F147F280C1C1400A3A2E5 /* Run SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -242,6 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CORE001280C211E00A3A2E5 /* VirtualDisplayManager.swift in Sources */,
+				CORE003280C211E00A3A2E5 /* DisplayStreamRenderer.swift in Sources */,
+				CORE005280C211E00A3A2E5 /* MouseTracker.swift in Sources */,
+				CORE007280C211E00A3A2E5 /* DeskPadViewController.swift in Sources */,
 				6D68E1B4287ABFC800CD574A /* ScreenConfigurationState.swift in Sources */,
 				6D68E1B2287ABDB900CD574A /* NSScreen+Extensions.swift in Sources */,
 				6D2F148C280C20D000A3A2E5 /* Store.swift in Sources */,
@@ -254,7 +279,7 @@
 				6D41B0A42879FBA8007CEB2F /* ScreenViewData.swift in Sources */,
 				6D2F148E280C211E00A3A2E5 /* ScreenViewController.swift in Sources */,
 				6DC044522801877F00281728 /* AppDelegate.swift in Sources */,
-				6DC04461280191EB00281728 /* main.swift in Sources */,
+				MAIN001280C211E00A3A2E5 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +290,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -295,9 +321,12 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = F84FKGN358;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -317,6 +346,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "DeskPad/DeskPad-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -327,6 +357,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -357,9 +388,12 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = F84FKGN358;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -372,6 +406,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "DeskPad/DeskPad-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -387,8 +422,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = TYPC962S4N;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -397,7 +434,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.3.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stengo.DeskPad;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mvstaging.desk-pad";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -413,8 +450,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = TYPC962S4N;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -423,7 +462,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.3.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stengo.DeskPad;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mvstaging.desk-pad";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

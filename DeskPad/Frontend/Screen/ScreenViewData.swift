@@ -1,13 +1,13 @@
 import Foundation
 
-struct ScreenViewData: ViewDataType {
-    struct StateFragment: Equatable {
+struct ScreenViewData: ViewDataType, Sendable {
+    struct StateFragment: Equatable, Sendable {
         let mouseLocationState: MouseLocationState
         let screenConfiguration: ScreenConfigurationState
     }
 
     static func fragment(of appState: AppState) -> StateFragment {
-        return StateFragment(
+        StateFragment(
             mouseLocationState: appState.mouseLocationState,
             screenConfiguration: appState.screenConfigurationState
         )

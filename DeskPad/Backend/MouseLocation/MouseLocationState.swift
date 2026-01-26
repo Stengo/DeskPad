@@ -1,11 +1,11 @@
 import Foundation
 import ReSwift
 
-struct MouseLocationState: Equatable {
+struct MouseLocationState: Equatable, Sendable {
     let isWithinScreen: Bool
 
     static var initialState: MouseLocationState {
-        return MouseLocationState(isWithinScreen: false)
+        MouseLocationState(isWithinScreen: false)
     }
 }
 
