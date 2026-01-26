@@ -38,7 +38,6 @@ private enum DisplayModes {
     ]
 }
 
-@MainActor
 final class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDelegate {
     override func loadView() {
         view = NSView()
@@ -140,10 +139,8 @@ final class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWi
         stream?.start()
     }
 
-    nonisolated func windowWillResize(_ window: NSWindow, to frameSize: NSSize) -> NSSize {
-        MainActor.assumeIsolated {
-            calculateResizedFrame(for: window, proposedSize: frameSize)
-        }
+    func windowWillResize(_ window: NSWindow, to frameSize: NSSize) -> NSSize {
+        calculateResizedFrame(for: window, proposedSize: frameSize)
     }
 
     private func calculateResizedFrame(for window: NSWindow, proposedSize frameSize: NSSize) -> NSSize {

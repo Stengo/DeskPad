@@ -6,47 +6,27 @@ enum ScreenConfigurationAction: Action {
     case set(resolution: CGSize, scaleFactor: CGFloat)
 }
 
-@MainActor
-final class ScreenConfigurationSideEffect {
-    private var notificationCancellable: AnyCancellable?
-    private var getState: (() -> AppState?)?
-    private var dispatch: DispatchFunction?
-
-    nonisolated init() {}
-
-    func start(dispatch: @escaping DispatchFunction, getState: @escaping () -> AppState?) {
-        self.dispatch = dispatch
-        self.getState = getState
-
-        guard notificationCancellable == nil else { return }
-
-        notificationCancellable = NotificationCenter.default
-            .publisher(for: NSApplication.didChangeScreenParametersNotification, object: NSApplication.shared)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.handleScreenParametersChange()
-            }
-    }
-
-    private func handleScreenParametersChange() {
-        guard let screen = NSScreen.screens.first(where: {
-            $0.displayID == getState?()?.screenConfigurationState.displayID
-        }) else {
-            return
-        }
-
-        dispatch?(ScreenConfigurationAction.set(
-            resolution: screen.frame.size,
-            scaleFactor: screen.backingScaleFactor
-        ))
-    }
-}
+private var notificationCancellable: AnyCancellable?
 
 func screenConfigurationSideEffect() -> SideEffect {
-    let handler = ScreenConfigurationSideEffect()
     return { _, dispatch, getState in
-        Task { @MainActor in
-            handler.start(dispatch: dispatch, getState: getState)
+        // Set up notification observer on first action (runs on main thread via Combine)
+        if notificationCancellable == nil {
+            notificationCancellable = NotificationCenter.default
+                .publisher(for: NSApplication.didChangeScreenParametersNotification, object: NSApplication.shared)
+                .receive(on: DispatchQueue.main)
+                .sink { _ in
+                    guard let screen = NSScreen.screens.first(where: {
+                        $0.displayID == getState()?.screenConfigurationState.displayID
+                    }) else {
+                        return
+                    }
+
+                    dispatch(ScreenConfigurationAction.set(
+                        resolution: screen.frame.size,
+                        scaleFactor: screen.backingScaleFactor
+                    ))
+                }
         }
     }
 }

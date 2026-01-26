@@ -1,7 +1,6 @@
 import AppKit
 import ReSwift
 
-@MainActor
 class SubscriberViewController<ViewData: ViewDataType>: NSViewController, StoreSubscriber {
     typealias StoreSubscriberStateType = ViewData.StateFragment
 
@@ -21,8 +20,10 @@ class SubscriberViewController<ViewData: ViewDataType>: NSViewController, StoreS
         store.unsubscribe(self)
     }
 
-    nonisolated func newState(state: ViewData.StateFragment) {
-        Task { @MainActor [weak self] in
+    func newState(state: ViewData.StateFragment) {
+        // ReSwift calls this on the same thread as dispatch (main thread in this app)
+        // Use async to avoid potential re-entrancy issues during dispatch
+        DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.update(with: ViewData(for: state))
         }
