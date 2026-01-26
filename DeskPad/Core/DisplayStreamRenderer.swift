@@ -39,10 +39,11 @@ final class DisplayStreamRenderer: NSView {
     // MARK: - Setup
 
     private func setupMetal() {
+        print("[DisplayStreamRenderer] setupMetal called")
         wantsLayer = true
 
         guard let device = MTLCreateSystemDefaultDevice() else {
-            print("Metal is not supported on this device")
+            print("[DisplayStreamRenderer] Metal is not supported on this device")
             return
         }
 
@@ -57,6 +58,7 @@ final class DisplayStreamRenderer: NSView {
         metalLayer.contentsScale = NSScreen.main?.backingScaleFactor ?? 2.0
 
         layer = metalLayer
+        print("[DisplayStreamRenderer] Metal setup complete")
     }
 
     override func layout() {
@@ -72,12 +74,15 @@ final class DisplayStreamRenderer: NSView {
 
     /// Configures and starts the display stream
     func configure(displayID: CGDirectDisplayID, resolution: CGSize, scaleFactor: CGFloat) {
+        print("[DisplayStreamRenderer] configure called - displayID: \(displayID), resolution: \(resolution), scaleFactor: \(scaleFactor)")
+
         // Skip if already configured with same parameters
         if displayID == currentDisplayID,
            resolution == currentResolution,
            scaleFactor == currentScaleFactor,
            displayStream != nil
         {
+            print("[DisplayStreamRenderer] Already configured with same parameters, skipping")
             return
         }
 
@@ -93,6 +98,8 @@ final class DisplayStreamRenderer: NSView {
         let outputWidth = Int(resolution.width * scaleFactor)
         let outputHeight = Int(resolution.height * scaleFactor)
 
+        print("[DisplayStreamRenderer] Creating stream with outputWidth: \(outputWidth), outputHeight: \(outputHeight)")
+
         // Create new display stream
         let stream = CGDisplayStream(
             dispatchQueueDisplay: displayID,
@@ -103,14 +110,24 @@ final class DisplayStreamRenderer: NSView {
                 CGDisplayStream.showCursor: true,
             ] as CFDictionary,
             queue: .main,
-            handler: { [weak self] _, _, frameSurface, _ in
-                guard let surface = frameSurface else { return }
+            handler: { [weak self] status, _, frameSurface, _ in
+                if status != .frameComplete {
+                    print("[DisplayStreamRenderer] Stream status: \(status.rawValue)")
+                }
+                guard let surface = frameSurface else {
+                    return
+                }
                 self?.renderFrame(surface)
             }
         )
 
-        self.displayStream = stream
-        stream?.start()
+        if let stream = stream {
+            self.displayStream = stream
+            let startResult = stream.start()
+            print("[DisplayStreamRenderer] Stream created and started with result: \(startResult.rawValue)")
+        } else {
+            print("[DisplayStreamRenderer] ERROR: Failed to create CGDisplayStream!")
+        }
     }
 
     /// Stops the display stream
@@ -121,7 +138,14 @@ final class DisplayStreamRenderer: NSView {
 
     // MARK: - Rendering
 
+    private var frameCount = 0
+
     private func renderFrame(_ surface: IOSurfaceRef) {
+        frameCount += 1
+        if frameCount == 1 || frameCount % 60 == 0 {
+            print("[DisplayStreamRenderer] Rendering frame #\(frameCount)")
+        }
+
         // For simplicity and efficiency, we'll use the CALayer contents approach
         // which is already GPU-optimized via IOSurface
         // Metal rendering would be used for additional post-processing

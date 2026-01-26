@@ -3,17 +3,11 @@ import Combine
 
 /// Main view controller for the DeskPad display window
 final class DeskPadViewController: NSViewController, NSWindowDelegate {
-    // MARK: - Dependencies
+    // MARK: - Properties
 
-    private let displayManager: VirtualDisplayManager
-    private let mouseTracker: MouseTracker
-
-    // MARK: - Views
-
+    private var displayManager: VirtualDisplayManager!
+    private var mouseTracker: MouseTracker!
     private var renderer: DisplayStreamRenderer!
-
-    // MARK: - State
-
     private var cancellables = Set<AnyCancellable>()
     private var isWindowHighlighted = false
 
@@ -25,10 +19,8 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
 
     // MARK: - Initialization
 
-    init(displayManager: VirtualDisplayManager, mouseTracker: MouseTracker) {
-        self.displayManager = displayManager
-        self.mouseTracker = mouseTracker
-        super.init(nibName: nil, bundle: nil)
+    override init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
     @available(*, unavailable)
@@ -39,7 +31,7 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
     // MARK: - View Lifecycle
 
     override func loadView() {
-        renderer = DisplayStreamRenderer(frame: .zero)
+        renderer = DisplayStreamRenderer(frame: NSRect(x: 0, y: 0, width: 1280, height: 720))
         view = renderer
 
         // Add click gesture
@@ -49,34 +41,34 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Create managers
+        displayManager = VirtualDisplayManager()
+        mouseTracker = MouseTracker()
+
+        // Set up bindings for state changes
         setupBindings()
-    }
 
-    override func viewWillAppear() {
-        super.viewWillAppear()
-
-        // Create virtual display when view appears
+        // Create virtual display immediately
         displayManager.create()
     }
 
     override func viewDidDisappear() {
         super.viewDidDisappear()
-
-        // Clean up when view disappears
         renderer.stopStream()
         mouseTracker.stopTracking()
+        displayManager.destroy()
     }
 
     // MARK: - Bindings
 
     private func setupBindings() {
-        // When display becomes ready, configure the renderer and start tracking
+        // When display becomes ready, configure everything
         displayManager.$isReady
-            .combineLatest(displayManager.$displayID, displayManager.$resolution, displayManager.$scaleFactor)
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isReady, displayID, resolution, scaleFactor in
-                guard isReady, let displayID = displayID, resolution != .zero else { return }
-                self?.configureDisplay(displayID: displayID, resolution: resolution, scaleFactor: scaleFactor)
+            .sink { [weak self] isReady in
+                guard isReady else { return }
+                self?.onDisplayReady()
             }
             .store(in: &cancellables)
 
@@ -87,27 +79,67 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
                 self?.updateWindowHighlight(isWithin)
             }
             .store(in: &cancellables)
+
+        // React to resolution changes
+        displayManager.$resolution
+            .dropFirst() // Skip initial value
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] resolution in
+                guard let self, resolution != .zero else { return }
+                self.onResolutionChanged(resolution)
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - Display Configuration
 
-    private func configureDisplay(displayID: CGDirectDisplayID, resolution: CGSize, scaleFactor: CGFloat) {
-        // Configure window
-        configureWindow(for: resolution)
+    private func onDisplayReady() {
+        print("[DeskPadViewController] onDisplayReady called")
+
+        guard let displayID = displayManager.displayID else {
+            print("[DeskPadViewController] No displayID")
+            return
+        }
+
+        let resolution = displayManager.resolution
+        let scaleFactor = displayManager.scaleFactor
+
+        print("[DeskPadViewController] Resolution: \(resolution), Scale: \(scaleFactor)")
+
+        // Configure window size
+        if let window = view.window, resolution != .zero {
+            print("[DeskPadViewController] Setting window size to: \(resolution)")
+            window.setContentSize(resolution)
+            window.contentAspectRatio = resolution
+            window.center()
+        }
 
         // Start streaming
-        renderer.configure(displayID: displayID, resolution: resolution, scaleFactor: scaleFactor)
+        if resolution != .zero {
+            print("[DeskPadViewController] Starting stream for displayID: \(displayID)")
+            renderer.configure(displayID: displayID, resolution: resolution, scaleFactor: scaleFactor)
+        }
 
         // Start mouse tracking
         mouseTracker.startTracking(displayID: displayID)
+        print("[DeskPadViewController] Mouse tracking started")
     }
 
-    private func configureWindow(for resolution: CGSize) {
-        guard let window = view.window else { return }
+    private func onResolutionChanged(_ resolution: CGSize) {
+        guard let displayID = displayManager.displayID else { return }
 
-        window.setContentSize(resolution)
-        window.contentAspectRatio = resolution
-        window.center()
+        // Update window
+        if let window = view.window {
+            window.setContentSize(resolution)
+            window.contentAspectRatio = resolution
+        }
+
+        // Reconfigure stream
+        renderer.configure(
+            displayID: displayID,
+            resolution: resolution,
+            scaleFactor: displayManager.scaleFactor
+        )
     }
 
     // MARK: - Window Highlight
@@ -141,9 +173,9 @@ final class DeskPadViewController: NSViewController, NSWindowDelegate {
 
     func windowWillResize(_ window: NSWindow, to frameSize: NSSize) -> NSSize {
         let contentSize = window.contentRect(forFrameRect: NSRect(origin: .zero, size: frameSize)).size
+        let resolution = displayManager.resolution
 
         // Snap to exact resolution if close
-        let resolution = displayManager.resolution
         if resolution != .zero,
            abs(contentSize.width - resolution.width) < Constants.windowSnappingThreshold
         {

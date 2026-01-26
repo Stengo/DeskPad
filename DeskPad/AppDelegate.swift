@@ -5,21 +5,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Properties
 
     private var window: NSWindow!
-    private var displayManager: VirtualDisplayManager!
-    private var mouseTracker: MouseTracker!
+    private var viewController: DeskPadViewController!
 
     // MARK: - Application Lifecycle
 
     func applicationDidFinishLaunching(_: Notification) {
-        // Create managers
-        displayManager = VirtualDisplayManager()
-        mouseTracker = MouseTracker()
-
-        // Create view controller
-        let viewController = DeskPadViewController(
-            displayManager: displayManager,
-            mouseTracker: mouseTracker
-        )
+        // Create view controller (which creates display in viewDidLoad)
+        viewController = DeskPadViewController()
 
         // Create and configure window
         window = NSWindow(contentViewController: viewController)
@@ -36,6 +28,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
+        true
+    }
+
+    func applicationSupportsSecureRestorableState(_: NSApplication) -> Bool {
         true
     }
 

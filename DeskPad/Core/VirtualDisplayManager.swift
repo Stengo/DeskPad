@@ -14,6 +14,8 @@ final class VirtualDisplayManager: ObservableObject {
 
     private var virtualDisplay: CGVirtualDisplay?
     private var notificationObserver: NSObjectProtocol?
+    private var retryCount = 0
+    private let maxRetries = 50 // 5 seconds max at 100ms intervals
 
     // MARK: - Constants
 
@@ -45,7 +47,9 @@ final class VirtualDisplayManager: ObservableObject {
 
     // MARK: - Initialization
 
-    init() {}
+    init() {
+        print("[VirtualDisplayManager] Initialized")
+    }
 
     deinit {
         destroy()
@@ -55,7 +59,12 @@ final class VirtualDisplayManager: ObservableObject {
 
     /// Creates and configures the virtual display
     func create() {
-        guard virtualDisplay == nil else { return }
+        guard virtualDisplay == nil else {
+            print("[VirtualDisplayManager] Already created")
+            return
+        }
+
+        print("[VirtualDisplayManager] Creating virtual display...")
 
         // Create descriptor
         let descriptor = CGVirtualDisplayDescriptor()
@@ -73,16 +82,21 @@ final class VirtualDisplayManager: ObservableObject {
         self.virtualDisplay = display
         self.displayID = display.displayID
 
+        print("[VirtualDisplayManager] Display created with ID: \(display.displayID)")
+
         // Configure settings
         let settings = CGVirtualDisplaySettings()
         settings.hiDPI = 1
         settings.modes = Constants.displayModes
         display.apply(settings)
 
+        print("[VirtualDisplayManager] Settings applied")
+
         // Start observing screen parameter changes
         startObservingScreenChanges()
 
-        // Query initial configuration after a brief delay to allow system to recognize display
+        // Query initial configuration after a brief delay
+        retryCount = 0
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             self?.updateScreenConfiguration()
         }
@@ -90,6 +104,7 @@ final class VirtualDisplayManager: ObservableObject {
 
     /// Destroys the virtual display
     func destroy() {
+        print("[VirtualDisplayManager] Destroying...")
         stopObservingScreenChanges()
         virtualDisplay = nil
         displayID = nil
@@ -101,11 +116,13 @@ final class VirtualDisplayManager: ObservableObject {
     // MARK: - Private Methods
 
     private func startObservingScreenChanges() {
+        print("[VirtualDisplayManager] Starting notification observer")
         notificationObserver = NotificationCenter.default.addObserver(
             forName: NSApplication.didChangeScreenParametersNotification,
             object: NSApplication.shared,
             queue: .main
         ) { [weak self] _ in
+            print("[VirtualDisplayManager] Received screen parameters notification")
             self?.updateScreenConfiguration()
         }
     }
@@ -118,18 +135,33 @@ final class VirtualDisplayManager: ObservableObject {
     }
 
     private func updateScreenConfiguration() {
-        guard let displayID = displayID else { return }
+        guard let displayID = displayID else {
+            print("[VirtualDisplayManager] No displayID")
+            return
+        }
+
+        print("[VirtualDisplayManager] Looking for screen with displayID: \(displayID)")
+        print("[VirtualDisplayManager] Available screens: \(NSScreen.screens.map { "\($0.displayID)" }.joined(separator: ", "))")
 
         guard let screen = NSScreen.screens.first(where: { $0.displayID == displayID }) else {
-            // Display not yet recognized by system, retry
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                self?.updateScreenConfiguration()
+            retryCount += 1
+            if retryCount < maxRetries {
+                print("[VirtualDisplayManager] Display not found, retry \(retryCount)/\(maxRetries)")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                    self?.updateScreenConfiguration()
+                }
+            } else {
+                print("[VirtualDisplayManager] Max retries reached, display not found")
             }
             return
         }
 
+        print("[VirtualDisplayManager] Found screen: \(screen.frame.size), scale: \(screen.backingScaleFactor)")
+
         resolution = screen.frame.size
         scaleFactor = screen.backingScaleFactor
         isReady = true
+
+        print("[VirtualDisplayManager] isReady = true")
     }
 }
