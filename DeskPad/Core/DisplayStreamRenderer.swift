@@ -76,7 +76,7 @@ final class DisplayStreamRenderer: NSView {
         )
 
         if let stream = stream {
-            self.displayStream = stream
+            displayStream = stream
             stream.start()
             print("[DisplayStreamRenderer] Stream started successfully")
         } else {

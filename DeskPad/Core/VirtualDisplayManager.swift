@@ -79,8 +79,8 @@ final class VirtualDisplayManager: ObservableObject {
 
         // Create the virtual display
         let display = CGVirtualDisplay(descriptor: descriptor)
-        self.virtualDisplay = display
-        self.displayID = display.displayID
+        virtualDisplay = display
+        displayID = display.displayID
 
         print("[VirtualDisplayManager] Display created with ID: \(display.displayID)")
 
