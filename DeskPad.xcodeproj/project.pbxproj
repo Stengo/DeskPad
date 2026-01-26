@@ -24,6 +24,7 @@
 		6D68E1B2287ABDB900CD574A /* NSScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68E1B1287ABDB900CD574A /* NSScreen+Extensions.swift */; };
 		6D68E1B4287ABFC800CD574A /* ScreenConfigurationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68E1B3287ABFC800CD574A /* ScreenConfigurationState.swift */; };
 		6DC044522801877F00281728 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC044512801877F00281728 /* AppDelegate.swift */; };
+		MAIN001280C211E00A3A2E5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = MAIN002280C211E00A3A2E5 /* main.swift */; };
 		6DC044562801878100281728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DC044552801878100281728 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		6D68E1B3287ABFC800CD574A /* ScreenConfigurationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenConfigurationState.swift; sourceTree = "<group>"; };
 		6DC0444E2801877F00281728 /* DeskPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeskPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DC044512801877F00281728 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		MAIN002280C211E00A3A2E5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6DC044552801878100281728 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DC0445A2801878100281728 /* DeskPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeskPad.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +153,7 @@
 				COREGRP280C211E00A3A2E5 /* Core */,
 				6D2F1485280C20C800A3A2E5 /* SubscriberViewController.swift */,
 				6DC044512801877F00281728 /* AppDelegate.swift */,
+				MAIN002280C211E00A3A2E5 /* main.swift */,
 				6D2F1483280C201B00A3A2E5 /* Backend */,
 				6D2F1484280C202700A3A2E5 /* Frontend */,
 				6D68E1B0287ABDAB00CD574A /* Helpers */,
@@ -276,6 +279,7 @@
 				6D41B0A42879FBA8007CEB2F /* ScreenViewData.swift in Sources */,
 				6D2F148E280C211E00A3A2E5 /* ScreenViewController.swift in Sources */,
 				6DC044522801877F00281728 /* AppDelegate.swift in Sources */,
+				MAIN001280C211E00A3A2E5 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
