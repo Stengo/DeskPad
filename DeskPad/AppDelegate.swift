@@ -10,21 +10,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Application Lifecycle
 
     func applicationDidFinishLaunching(_: Notification) {
+        print("[AppDelegate] applicationDidFinishLaunching")
+
         // Create view controller (which creates display in viewDidLoad)
         viewController = DeskPadViewController()
+        print("[AppDelegate] DeskPadViewController created")
 
         // Create and configure window
         window = NSWindow(contentViewController: viewController)
+        print("[AppDelegate] Window created")
+
         configureWindow()
+        print("[AppDelegate] Window configured")
 
         // Set window delegate
         window.delegate = viewController
 
         // Show window
         window.makeKeyAndOrderFront(nil)
+        print("[AppDelegate] Window shown")
 
         // Setup application menu
         setupMenu()
+        print("[AppDelegate] Setup complete")
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
