@@ -20,16 +20,19 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SerialNumberManager.shared.claimSerial()
+        let serial = SerialNumberManager.shared.claimedSerial ?? 0x0001
+        title = "Screen \(serial)"
 
         let descriptor = CGVirtualDisplayDescriptor()
         descriptor.setDispatchQueue(DispatchQueue.main)
-        descriptor.name = "DeskPad Display"
+        descriptor.name = "DeskPad Display \(serial)"
         descriptor.maxPixelsWide = 3840
         descriptor.maxPixelsHigh = 2160
         descriptor.sizeInMillimeters = CGSize(width: 1600, height: 1000)
         descriptor.productID = 0x1234
         descriptor.vendorID = 0x3456
-        descriptor.serialNum = 0x0001
+        descriptor.serialNum = serial
 
         let display = CGVirtualDisplay(descriptor: descriptor)
         store.dispatch(ScreenViewAction.setDisplayID(display.displayID))
@@ -119,5 +122,9 @@ class ScreenViewController: SubscriberViewController<ScreenViewData>, NSWindowDe
             y: (view.frame.height - clickedPoint.y) / view.frame.height * screenResolution.height
         )
         store.dispatch(MouseLocationAction.requestMove(toPoint: onScreenPoint))
+    }
+
+    func applicationWillTerminate(_: Notification) {
+        SerialNumberManager.shared.releaseSerial()
     }
 }

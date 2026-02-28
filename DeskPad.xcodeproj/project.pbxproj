@@ -22,6 +22,7 @@
 		6DC044522801877F00281728 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC044512801877F00281728 /* AppDelegate.swift */; };
 		6DC044562801878100281728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DC044552801878100281728 /* Assets.xcassets */; };
 		6DC04461280191EB00281728 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC04460280191EB00281728 /* main.swift */; };
+    70EA23072E38CF4A00B8ED62 /* SerialNumberManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EA23062E38CF4A00B8ED62 /* SerialNumberManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		6DC044512801877F00281728 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DC044552801878100281728 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DC0445A2801878100281728 /* DeskPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeskPad.entitlements; sourceTree = "<group>"; };
+    70EA23062E38CF4A00B8ED62 /* SerialNumberManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialNumberManager.swift; sourceTree = "<group>"; };
 		6DC04460280191EB00281728 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 			children = (
 				6DC04460280191EB00281728 /* main.swift */,
 				6D2F1485280C20C800A3A2E5 /* SubscriberViewController.swift */,
+        70EA23062E38CF4A00B8ED62 /* SerialNumberManager.swift */,
 				6DC044512801877F00281728 /* AppDelegate.swift */,
 				6D2F1483280C201B00A3A2E5 /* Backend */,
 				6D2F1484280C202700A3A2E5 /* Frontend */,
@@ -247,6 +250,7 @@
 				6D2F148C280C20D000A3A2E5 /* Store.swift in Sources */,
 				6D2F1486280C20C800A3A2E5 /* SubscriberViewController.swift in Sources */,
 				6D68E1AF287ABB9900CD574A /* ScreenConfigurationSideEffect.swift in Sources */,
+        70EA23072E38CF4A00B8ED62 /* SerialNumberManager.swift in Sources */,
 				6D41B0A12879FABE007CEB2F /* MouseLocationState.swift in Sources */,
 				6D2F148A280C20D000A3A2E5 /* AppState.swift in Sources */,
 				6D2F148B280C20D000A3A2E5 /* SideEffectsMiddleware.swift in Sources */,
