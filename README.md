@@ -19,7 +19,7 @@ DeskPad creates a virtual display that is mirrored within its application window
 
 # Installation
 
-You can either download the [latest release binary](https://github.com/Stengo/DeskPad/releases) or install via [Homebrew](https://brew.sh) by calling `brew install deskpad`.
+You can either download the [latest release binary](https://github.com/Stengo/DeskPad/releases) or install via [Homebrew](https://brew.sh) by calling `brew install --cask deskpad`.
 
 # Grant Screen Recording Permissions
 
