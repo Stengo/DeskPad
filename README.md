@@ -21,6 +21,18 @@ DeskPad creates a virtual display that is mirrored within its application window
 
 You can either download the [latest release binary](https://github.com/Stengo/DeskPad/releases) or install via [Homebrew](https://brew.sh) by calling `brew install deskpad`.
 
+# Grant Screen Recording Permissions
+
+DeskPad may need screen recording permissions to display properly. Follow these steps:
+
+1. **Open System Settings** → **Privacy & Security** → **Screen Recording**
+2. **Enable DeskPad** by checking the box next to it
+3. **If DeskPad appears but isn't working:**
+   - Uncheck the DeskPad option
+   - Check it again to re-enable
+4. **Restart DeskPad** for changes to take effect
+
+
 # Usage
 DeskPad behaves like any other display. Launching the app is equivalent to plugging in a monitor, so macOS will take care of properly arranging your windows to their previous configuration.
 
